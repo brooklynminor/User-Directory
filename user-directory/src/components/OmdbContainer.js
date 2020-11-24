@@ -11,7 +11,6 @@ function OmdbContainer() {
 const [resultUsers, setResultUsers] = useState([]);
 const [displayUsers, setDisplayUsers] = useState([]);
 const [search, setSearch] = useState("");
-  // When this component mounts, search for the movie "The Matrix"
   // add the searchUsers to run as soon as this component is mounted in the
   useEffect( function(){
     searchUsers()
@@ -27,7 +26,7 @@ const [search, setSearch] = useState("");
   function handleInputChange( event ){
     console.log( `[handleINputChange] called value=${event.target.value}`)
     //update our search variable
-    //call the 'serachMovies()' function
+    //call the 'searchUsers()' function
     setSearch( event.target.value )
   }
 
