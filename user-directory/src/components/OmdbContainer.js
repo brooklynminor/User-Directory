@@ -9,29 +9,33 @@ import API from "../utils/API";
 
 function OmdbContainer() {
 const [resultUsers, setResultUsers] = useState([]);
-const[search, setSearch] = useState("");
+const [displayUsers, setDisplayUsers] = useState([]);
+const [search, setSearch] = useState("");
   // When this component mounts, search for the movie "The Matrix"
   // add the searchUsers to run as soon as this component is mounted in the
   useEffect( function(){
     searchUsers()
   }, [] ) //send in empty set of variables
+
   async function searchUsers(){
     const res = await API.getUsers()
     console.log(res.data)
       setResultUsers( res.data.results )
+      setDisplayUsers( res.data.results )
   }
+
   function handleInputChange( event ){
-    console.log( `[handleINputChange] called value=${event.targte.value}`)
+    console.log( `[handleINputChange] called value=${event.target.value}`)
     //update our search variable
     //call the 'serachMovies()' function
     setSearch( event.target.value )
-
-}
+  }
 
   function  handleFormSubmit( event ) {
     event.preventDefault();
     // call the 'searchUsers()' function
-    searchUsers( search )
+    const list = resultUsers.filter( user=>user.name.first.indexOf( search)>-1 )
+    setDisplayUsers( list )
   }
 
     return (
@@ -59,7 +63,7 @@ const[search, setSearch] = useState("");
     </tr>
   </thead>
   <tbody>
-  {resultUsers.map(user=>(
+  {displayUsers.map(user=>(
             <UserDetail 
             picture={user.picture.thumbnail}
               firstname={user.name.first}
